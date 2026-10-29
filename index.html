@@ -689,10 +689,10 @@ if (typeof module !== 'undefined') module.exports = ToneDSP;
     var name = err && err.name || '';
     var msg;
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || name === 'NotAllowedError' || name === 'SecurityError') {
-      msg = 'No microphone access in this window. Open Tone Coach from its own link in Safari or Chrome (the Notion page has it), or use "Judge a recording file" with a Voice Memo.';
+      msg = 'No microphone access in this window. Open the practice page instead: <a href="https://xtremef.github.io/tone-coach/" target="_blank" rel="noopener">xtremef.github.io/tone-coach</a> (Safari or Chrome, microphone allowed). Or use "Judge a recording file" with a Voice Memo.';
     } else if (name === 'NotFoundError') msg = 'No microphone found on this device.';
     else msg = 'The microphone could not start (' + (name || 'unknown') + '). Close other apps using it and try again.';
-    $('micBanner').textContent = msg; $('micBanner').hidden = false;
+    $('micBanner').innerHTML = msg; $('micBanner').hidden = false;
   }
   async function getMic() {
     if (stream && stream.active) return stream;
