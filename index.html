@@ -689,7 +689,10 @@ if (typeof module !== 'undefined') module.exports = ToneDSP;
     var name = err && err.name || '';
     var msg;
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || name === 'NotAllowedError' || name === 'SecurityError') {
-      msg = 'No microphone access in this window. Open the practice page instead: <a href="https://xtremef.github.io/tone-coach/" target="_blank" rel="noopener">xtremef.github.io/tone-coach</a> (Safari or Chrome, microphone allowed). Or use "Judge a recording file" with a Voice Memo.';
+      var onPractice = /(^|\.)xtremef\.github\.io$/.test(location.hostname) || location.protocol === 'file:';
+      msg = onPractice
+        ? 'The microphone is blocked for this page. Allow it and reload: Safari › "aA" › Website Settings › Microphone; Chrome › the lock icon › Microphone. Or use "Judge a recording file" with a Voice Memo.'
+        : 'No microphone access in this window. Open the practice page instead: <a href="https://xtremef.github.io/tone-coach/" target="_blank" rel="noopener">xtremef.github.io/tone-coach</a> (Safari or Chrome, microphone allowed). Or use "Judge a recording file" with a Voice Memo.';
     } else if (name === 'NotFoundError') msg = 'No microphone found on this device.';
     else msg = 'The microphone could not start (' + (name || 'unknown') + '). Close other apps using it and try again.';
     $('micBanner').innerHTML = msg; $('micBanner').hidden = false;
